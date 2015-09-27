@@ -9,7 +9,8 @@ Subjects are measured when they are performing 6 different activities. Activity 
 
 Accelorometer makes 561 different measurements. Name of these measurerements are stored in "features.txt". 
 
-Measurements of accelometers are stored in "y_train.txt" and "y_test.txt" files. There are 561 columns in these files. Each column in these files correspond to one of 561 features. Each row is unique measurement.
+Measurements of accelometers are stored in "y_train.txt" and "y_test.txt" files. There are 561 columns in these files. Each column in these files correspond to one of 561 features. Each row is unique measurement of an activity and a subject. Subject id of each measurement is stored in "x_test.txt" and "x_train.txt" files. There are exactly same rows in x_test.txt and y_test.txt Subject id in the first row of x_text.txt corresponds to first measurement in y_test.txt... In general, subject id in the nth row of x_test.txt corresponds to nth measurement in y_test.txt. Likewise, subject id in the nth row of x_train.txt corresponds to nth measurement in y_train.txt.
+           
 
 
 #download file to working directory
