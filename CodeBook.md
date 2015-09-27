@@ -9,21 +9,16 @@ Subjects are measured when they are performing 6 different activities. Activity 
 
 Accelorometer makes 561 different measurements. Name of these measurerements are stored in "features.txt". 
 
-Measurements of accelometers are stored in "y_train.txt" and "y_test.txt" files. There are 561 columns in these files. Each column in these files correspond to one of 561 features. Each row is unique measurement of an activity and a subject. Subject id of each measurement is stored in "x_test.txt" and "x_train.txt" files. There are exactly same rows in x_test.txt and y_test.txt Subject id in the first row of x_text.txt corresponds to first measurement in y_test.txt... In general, subject id in the nth row of x_test.txt corresponds to nth measurement in y_test.txt. Likewise, subject id in the nth row of x_train.txt corresponds to nth measurement in y_train.txt.
-           
+Measurements of accelometers are stored in "x_train.txt" and "x_test.txt" files. There are 561 columns in these files. Each column in these files correspond to one of 561 features. Each row is unique measurement of an activity and a subject. 
 
+Feature id of each measurement is stored in "y_test.txt" and "y_train.txt" files. There are exactly same rows in x_test.txt and y_test.txt. Feature id in the first row of y_text.txt corresponds to first measurement in x_test.txt... In general, feature id in the nth row of y_test.txt corresponds to nth measurement in x_test.txt. Likewise, feature id in the nth row of y_train.txt corresponds to nth measurement in x_train.txt.
 
-#download file to working directory
-#download.file(fileUrl, destfile = ".getdata-projectfiles-UCI HAR Dataset.zip", mode="wb")
+Subject id of each measurement is stored in "subject_test.txt" and "subject_train.txt" files. There are exactly same rows in subject_test.txt and x_test.txt. Subject  id in the first row of subject_text.txt corresponds to first measurement in x_test.txt... In general, subject id in the nth row of subject_test.txt corresponds to nth measurement in x_test.txt. Likewise, subject id in the nth row of subject_train.txt corresponds to nth measurement in x_train.txt.
 
-# unzip the data to working directory
-# the data is saved to 'UCI HAR Dataset' folder
-#unzip(".getdata-projectfiles-UCI HAR Dataset.zip", exdir = ".")
+Inertial signals are ignored in this studt
 
-#read the activity names from the activity_labels.txt
-activity_labels <- read.table(file="./UCI HAR Dataset/activity_labels.txt")
-           
-#read the feature names from the features.txt
+1) read the activity names from the activity_labels.txt. Activity id 's will be replaced with activity names
+2)read the feature names from the features.txt. Column names of each result set will ve replaced by feature names
 features <- read.table(file="./UCI HAR Dataset/features.txt")
 
 #read results for test group from the X_test.txt
