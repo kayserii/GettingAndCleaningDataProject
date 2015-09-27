@@ -7,7 +7,9 @@ The data is acceloremeter measurements of 30 subjects. Subject names are not kno
 
 Subjects are measured when they are performing 6 different activities. Activity id's and names are stored in "activity_labels.txt"
 
-Accelorometer makes 561 different measurements.
+Accelorometer makes 561 different measurements. Name of these measurerements are stored in "features.txt". 
+
+Measurements of accelometers are stored in "y_train.txt" and "y_test.txt" files. There are 561 columns in these files. Each column in these files correspond to one of 561 features. Each row is unique measurement.
 
 
 #download file to working directory
