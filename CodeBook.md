@@ -15,71 +15,24 @@ Feature id of each measurement is stored in "y_test.txt" and "y_train.txt" files
 
 Subject id of each measurement is stored in "subject_test.txt" and "subject_train.txt" files. There are exactly same rows in subject_test.txt and x_test.txt. Subject  id in the first row of subject_text.txt corresponds to first measurement in x_test.txt... In general, subject id in the nth row of subject_test.txt corresponds to nth measurement in x_test.txt. Likewise, subject id in the nth row of subject_train.txt corresponds to nth measurement in x_train.txt.
 
-Inertial signals are ignored in this studt
+Inertial signals are ignored in this study.
 
-1) read the activity names from the activity_labels.txt. Activity id 's will be replaced with activity names
-2)read the feature names from the features.txt. Column names of each result set will ve replaced by feature names
-features <- read.table(file="./UCI HAR Dataset/features.txt")
-
-#read results for test group from the X_test.txt
-result.test <- read.table(file="./UCI HAR Dataset/test/X_test.txt")
-
-#read acticity_labels for test group from the Y_test.txt
-activity.test <- read.table(file="./UCI HAR Dataset/test/Y_test.txt")
-
-#read subject id for test group from the subject_test.txt
-subject.test <- read.table(file="./UCI HAR Dataset/test/subject_test.txt")
-
-#read results for train group from the X_train.txt
-result.train <- read.table(file="./UCI HAR Dataset/train/X_train.txt")
-
-#read acticity_labels for train group from the Y_train.txt
-activity.train <- read.table(file="./UCI HAR Dataset/train/Y_train.txt")
-
-#read subject id for train group from the subject_train.txt
-subject.train <- read.table(file="./UCI HAR Dataset/train/subject_train.txt")
-
-#Update feature names to make them more readible
-features$V2 <- gsub(pattern = "()",replace = "",features$V2, fixed = TRUE)
-features$V2 <- gsub(pattern = ",",replace = "_and_",features$V2, fixed = TRUE)
-features$V2 <- gsub(pattern = "-",replace = "_",features$V2, fixed = TRUE)
-
-#Change the columns names of result.train and result.test datasets
-#Columns correspond to feature names
-names(result.test) <- features$V2
-names(result.train) <- features$V2
-
-#subcject and activity id's will be added to the result data both for 
-#train and test set separately
-result.test$activity <- activity.test$V1
-result.test$subject <- subject.test$V1
-result.train$activity <- activity.train$V1
-result.train$subject <- subject.train$V1
-
-#train and data sets will be merged
-result <- rbind(result.test,result.train)
-
-#rename the activity id's to activity lables
-result$activity <- activity_labels$V2[result$activity]
-
-#Find feature names about mean or std
-mean_or_std <- unique(c(grep("mean",features$V2),grep("std",features$V2)))
-
-#A subset of result with features mean or std and activity & subject names 
-mean_or_std <- c(mean_or_std,c(562,563))
-resultms <- result[,mean_or_std]
-
-#sqldf package will be used to find the mean of resultms for each activity and subject
-#SQL query is in the form of "select avg(colname1),avg(colname2)... from data.frame group by .."
-#So the query is concatenated
-q <- paste(names(resultms)[1:79], collapse = '),avg(')
-qq <- paste("select subject, activity, avg(", q[1], ") from resultms group by subject, activity order by subject, activity")
-
-library(sqldf)
-#run the query
-step5 <- sqldf(qq)
-
-#save the query in a text file
-write.table(step5,file = "./step5.txt",row.names = FALSE, sep = ",")
+1) read the activity names from the activity_labels.txt. Activity id 's will be replaced with activity names.
+2)read the feature names from the features.txt. Column names of each result set will ve replaced by feature names.
+3)read results for test group from the X_test.txt
+4)read acticity_labels for test group from the Y_test.txt
+5)read subject id for test group from the subject_test.txt
+6)read results for train group from the X_train.txt
+7)read acticity_labels for train group from the Y_train.txt
+8)read subject id for train group from the subject_train.txt
+9)Update feature names to make them more readible (replace parantheses, commas and minuses)
+10)Change the columns names of result.train and result.test datasets to feature names
+11)Addsubcject and activity id to result data both for train and test set separately
+12)merge train and data sets
+13)rename the activity id's to activity lables
+14)Find feature names about mean or std and retrieve a subset of only those columns
+15)sqldf package will be used to find the mean of resultms for each activity and subject. SQL query is in the form of "select avg(colname1),avg(colname2)... from data.frame group by ..". So the query is concatenated
+16)step5 is retrieved by sql query. It gives the average of selected measures (measures about mean and standard deviation) for aeach activity and subject. 
+17)results are saved to step5.txt in working directory
 
 
